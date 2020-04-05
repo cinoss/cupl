@@ -1,7 +1,7 @@
 {
   "name": "cupl",
   "description": "This is a tool for automatic gherkin feature files generation from PlantUML activity diagram.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "cinoss",
   "bin": {
     "cupl": "./bin/run"
@@ -12,8 +12,8 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "fp-ts": "^2.5.3",
-    "tslib": "^1",
-    "gherkin": "^9.0.0"
+    "gherkin": "^9.0.0",
+    "tslib": "^1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
