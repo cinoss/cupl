@@ -30,8 +30,11 @@
     "eslint-config-prettier": "^6.10.1",
     "husky": "^4.2.3",
     "jest": "^25.2.7",
+    "nodemon": "^2.0.2",
     "nyc": "^14",
+    "pegjs": "^0.10.0",
     "ts-node": "^8",
+    "ts-pegjs": "^0.2.6",
     "typescript": "^3.3"
   },
   "engines": {
@@ -44,6 +47,10 @@
       "ts"
     ],
     "coverageDirectory": "./coverage",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/src/plantuml.ts"
+    ],
     "testEnvironment": "node",
     "coverageReporters": [
       "text",
@@ -69,10 +76,13 @@
   },
   "repository": "cinoss/cupl",
   "scripts": {
+    "postinstall": "yarn peg",
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
     "test": "jest --coverage",
-    "version": "oclif-dev readme && git add README.md"
+    "version": "oclif-dev readme && git add README.md",
+    "peg": "yarn pegjs --plugin ts-pegjs -o src/plantuml.ts --extra-options-file peg.config.json src/plantuml.pegjs",
+    "peg:dev": "nodemon --exec yarn peg -w src/plantuml.pegjs"
   },
   "types": "lib/index.d.ts",
   "lint-staged": {

@@ -24,3 +24,15 @@ export const spaces = ((n: number) => {
   }
   return res;
 })(20);
+
+export const deepFlatten = (a: any[]) => {
+  let res: any[] = [];
+  a.forEach((item) => {
+    if (item.length === undefined) {
+      res.push(item);
+    } else {
+      res = res.concat(deepFlatten(item));
+    }
+  });
+  return res;
+};

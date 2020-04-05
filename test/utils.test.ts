@@ -1,5 +1,5 @@
 import { split } from '../src/utils';
-import { spaces } from './../src/utils';
+import { deepFlatten, spaces } from './../src/utils';
 
 describe('split', () => {
   test('', () => {
@@ -19,4 +19,10 @@ describe('spaces', () => {
       expect(str).toMatch(/^\s*$/);
     });
   });
+});
+
+describe('deepFlatten', () => {
+  expect(deepFlatten([1, [], [[1], 1, [1]]])).toEqual([1, 1, 1, 1]);
+  expect(deepFlatten([1, [], [[2], 3, [4]]])).toEqual([1, 2, 3, 4]);
+  expect(deepFlatten([1, [2, 3, 4]])).toEqual([1, 2, 3, 4]);
 });

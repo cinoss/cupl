@@ -3,26 +3,8 @@ import { flow } from 'fp-ts/lib/function';
 import { getOrElse, none, some, toNullable } from 'fp-ts/lib/Option';
 import gherkin from 'gherkin';
 
+import { GlobalConfig, Node, PathConfig } from './types';
 import { spaces, split } from './utils';
-
-export interface Node {
-  type: 'condition' | 'activity' | 'action' | 'start' | 'stop' | 'end';
-  name?: string;
-}
-
-export interface CommonConfig {
-  alias?: { [key: string]: string };
-  examples?: { [key: string]: string }[] | string[][];
-}
-
-export interface PathConfig extends CommonConfig {
-  name?: string;
-  tags?: string[];
-}
-export interface GlobalConfig extends CommonConfig {
-  indent?: number;
-  dialect?: string;
-}
 
 const getOrZero = getOrElse<number>(() => 0);
 

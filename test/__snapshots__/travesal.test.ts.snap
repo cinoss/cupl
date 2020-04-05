@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+Array [
+  Array [
+    Object {
+      "type": "start",
+    },
+    Object {
+      "name": "Hello world",
+      "type": "activity",
+    },
+    Object {
+      "name": "This is defined on
+several **lines**",
+      "type": "activity",
+    },
+    Object {
+      "type": "end",
+    },
+  ],
+]
+`;
+
+exports[` 2`] = `
+Array [
+  Array [
+    Object {
+      "type": "start",
+    },
+    Object {
+      "name": "condition B",
+      "type": "condition",
+    },
+    Object {
+      "name": "Text 2",
+      "type": "activity",
+    },
+    Object {
+      "type": "stop",
+    },
+  ],
+  Array [
+    Object {
+      "type": "start",
+    },
+    Object {
+      "name": "condition A",
+      "type": "condition",
+    },
+    Object {
+      "name": "Text 1",
+      "type": "activity",
+    },
+    Object {
+      "name": "Happy",
+      "type": "activity",
+    },
+    Object {
+      "type": "end",
+    },
+  ],
+  Array [
+    Object {
+      "type": "start",
+    },
+    Object {
+      "name": "condition C",
+      "type": "condition",
+    },
+    Object {
+      "name": "condition C1",
+      "type": "condition",
+    },
+    Object {
+      "name": "Text C4",
+      "type": "activity",
+    },
+    Object {
+      "name": "Text 3",
+      "type": "activity",
+    },
+    Object {
+      "name": "Happy",
+      "type": "activity",
+    },
+    Object {
+      "type": "end",
+    },
+  ],
+  Array [
+    Object {
+      "type": "start",
+    },
+    Object {
+      "name": "condition C",
+      "type": "condition",
+    },
+    Object {
+      "name": "C2",
+      "type": "condition",
+    },
+    Object {
+      "name": "Text C else",
+      "type": "activity",
+    },
+    Object {
+      "name": "Text 3",
+      "type": "activity",
+    },
+    Object {
+      "name": "Happy",
+      "type": "activity",
+    },
+    Object {
+      "type": "end",
+    },
+  ],
+  Array [
+    Object {
+      "type": "start",
+    },
+    Object {
+      "name": "condition D",
+      "type": "condition",
+    },
+    Object {
+      "name": "Text 4",
+      "type": "activity",
+    },
+    Object {
+      "name": "Happy",
+      "type": "activity",
+    },
+    Object {
+      "type": "end",
+    },
+  ],
+  Array [
+    Object {
+      "type": "start",
+    },
+    Object {
+      "name": "nothing",
+      "type": "condition",
+    },
+    Object {
+      "name": "Text else",
+      "type": "activity",
+    },
+    Object {
+      "name": "Happy",
+      "type": "activity",
+    },
+    Object {
+      "type": "end",
+    },
+  ],
+]
+`;

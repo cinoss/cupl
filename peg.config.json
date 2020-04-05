@@ -1,0 +1,5 @@
+{
+  "tspegjs": {
+    "customHeader": "import * as types from './types';"
+  }
+}
