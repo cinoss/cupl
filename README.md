@@ -44,25 +44,22 @@ Feature: Simple ATM withdrawal
 ```
 
 <!-- toc -->
-
-- [cupl](#cupl)
-- [Usage](#usage)
+* [cupl](#cupl)
+* [Usage](#usage)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g cupl
-$ cupl <file path>
+$ cupl COMMAND
 running command...
 $ cupl (-v|--version|version)
-cupl/0.0.4 darwin-x64 node-v10.16.0
+cupl/0.1.0 darwin-x64 node-v10.16.0
 $ cupl --help [COMMAND]
 USAGE
-  $ cupl FILE
+  $ cupl COMMAND
 ...
 ```
-
 <!-- usagestop -->
