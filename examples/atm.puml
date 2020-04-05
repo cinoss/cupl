@@ -1,0 +1,24 @@
+@startuml ATM
+
+title
+  Simple ATM withdrawal
+  No PIN retry, No Amount re-enter
+end title
+
+start
+:@insert card;
+:@enter PIN;
+if (PIN is correct?) then (yes)
+  :@enter amount;
+  if (Balance is sufficient?) then (yes)
+    :dispense notes;
+    :print receipt;
+  else (Insufficient balance)
+    :display "Insufficient balance";
+  endif
+else (PIN is incorrect)
+  :display "incorrect PIN";
+endif
+:eject the card;
+end
+@enduml

@@ -1,28 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
-Array [
-  Array [
-    Object {
-      "type": "start",
-    },
-    Object {
-      "name": "Hello world",
-      "type": "activity",
-    },
-    Object {
-      "name": "This is defined on
-several **lines**",
-      "type": "activity",
-    },
-    Object {
-      "type": "end",
-    },
-  ],
-]
-`;
-
-exports[` 2`] = `
+exports[`traverse should support diagram with if statement 1`] = `
 Array [
   Array [
     Object {
@@ -150,6 +128,28 @@ Array [
     },
     Object {
       "name": "Happy",
+      "type": "activity",
+    },
+    Object {
+      "type": "end",
+    },
+  ],
+]
+`;
+
+exports[`traverse should support simple activity diagram 1`] = `
+Array [
+  Array [
+    Object {
+      "type": "start",
+    },
+    Object {
+      "name": "Hello world",
+      "type": "activity",
+    },
+    Object {
+      "name": "This is defined on
+several **lines**",
       "type": "activity",
     },
     Object {

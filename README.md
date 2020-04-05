@@ -1,7 +1,6 @@
-cupl
-====
+# cupl
 
-This is a tool for automatic gherkin feature files generation from PlantUML activity diagram.
+A CLI tool for automatic **CU**cumber gherkin feature files generation from **PL**antuml activity diagram.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/cupl.svg)](https://npmjs.org/package/cupl)
@@ -11,25 +10,59 @@ This is a tool for automatic gherkin feature files generation from PlantUML acti
 [![Downloads/week](https://img.shields.io/npm/dw/cupl.svg)](https://npmjs.org/package/cupl)
 [![License](https://img.shields.io/npm/l/cupl.svg)](https://github.com/cinoss/cupl/blob/master/package.json)
 
+Cupl will help you transform `.puml` file of this diagram.
+
+![ATM Activity Diagram](./examples/ATM.png)
+
+Into this Gherkin feature description
+
+```gherkin
+Feature: Simple ATM withdrawal
+  No PIN retry, No Amount re-enter
+
+  Scenario: Successful transaction
+    Given Entered Correct PIN number
+      And Balance is sufficient
+    When enter amount
+    Then dispense notes
+      And print receipt
+      And eject the card
+
+  Scenario: The world is not enough
+    Given Entered Correct PIN number
+      And Insufficient balance
+    When enter amount
+    Then display "Insufficient balance"
+      And eject the card
+
+  Scenario: PIN is incorrect
+    Given User's PIN is 111111
+    When insert card
+      And User enters 111112
+    Then display "incorrect PIN"
+      And eject the card
+```
+
 <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
+
+- [cupl](#cupl)
+- [Usage](#usage)
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
 $ npm install -g cupl
-$ cupl COMMAND
+$ cupl <file path>
 running command...
 $ cupl (-v|--version|version)
 cupl/0.0.4 darwin-x64 node-v10.16.0
 $ cupl --help [COMMAND]
 USAGE
-  $ cupl COMMAND
+  $ cupl FILE
 ...
 ```
-<!-- usagestop -->
-# Commands
-<!-- commands -->
 
-<!-- commandsstop -->
+<!-- usagestop -->

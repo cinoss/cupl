@@ -1,6 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generate should accept path with neither action nor condition 1`] = `
+exports[`generateFeature Should support long description 1`] = `
+Object {
+  "feature": "Feature: title
+  description
+  description
+  description
+  description
+
+  Scenario: 
+    Then Hello world
+      And This is defined on
+several **lines**",
+  "newConfig": Object {
+    "global": undefined,
+    "paths": Object {
+      "": Object {},
+    },
+  },
+}
+`;
+
+exports[`generateFeature Should support no description 1`] = `
+Object {
+  "feature": "Feature: title
+  Scenario: 
+    Then Hello world
+      And This is defined on
+several **lines**",
+  "newConfig": Object {
+    "global": undefined,
+    "paths": Object {
+      "": Object {},
+    },
+  },
+}
+`;
+
+exports[`generateScenario should accept path with neither action nor condition 1`] = `
 Array [
   "  Scenario: ",
   "    Then show wrong PIN Entered",
@@ -8,7 +45,7 @@ Array [
 ]
 `;
 
-exports[`generate should accept path with no condition 1`] = `
+exports[`generateScenario should accept path with no condition 1`] = `
 Array [
   "  Scenario: ",
   "    When user enters PIN",
@@ -17,7 +54,7 @@ Array [
 ]
 `;
 
-exports[`generate should create scenario with Given Then When 1`] = `
+exports[`generateScenario should create scenario with Given Then When 1`] = `
 Array [
   "  Scenario: entered wrong PIN",
   "    Given entered wrong PIN",
@@ -27,7 +64,7 @@ Array [
 ]
 `;
 
-exports[`generate should support And on Given, When and Then 1`] = `
+exports[`generateScenario should support And on Given, When and Then 1`] = `
 Array [
   "  Scenario: server responded|entered wrong PIN",
   "    Given server responded",
@@ -39,7 +76,7 @@ Array [
 ]
 `;
 
-exports[`generate support dialects 1`] = `
+exports[`generateScenario support dialects 1`] = `
 Array [
   "  @web @server",
   "  Kịch bản: User forgot PIN or made a typo",
@@ -50,7 +87,7 @@ Array [
 ]
 `;
 
-exports[`generate support fallback to en if specified dialect is missing 1`] = `
+exports[`generateScenario support fallback to en if specified dialect is missing 1`] = `
 Array [
   "  @web @server",
   "  Scenario: User forgot PIN or made a typo",
@@ -61,7 +98,7 @@ Array [
 ]
 `;
 
-exports[`generate support path and global alias 1`] = `
+exports[`generateScenario support path and global alias 1`] = `
 Array [
   "  @web @server",
   "  Scenario: User forgot PIN or made a typo",

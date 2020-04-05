@@ -1,6 +1,7 @@
-import { generateScenario } from '../src/generator';
+import { generateFeature, generateScenario } from '../src/generator';
+import { parse } from './../src/plantuml';
 
-describe('generate', () => {
+describe('generateScenario', () => {
   // async function assertIsValidGherkin(scenario: string[]) {
   //   // const output = gherkin.fromSources([makeSourceEnvelop(scenario.join('\n'))]);
   //   console.log(gherkin.dialects().en);
@@ -160,5 +161,42 @@ describe('generate', () => {
     );
     expect(generated).toMatchSnapshot();
     expect(generated.find((line) => /\s+Given/.test(line))).toBeTruthy();
+  });
+});
+
+describe('generateFeature', () => {
+  test('Should support no description', () => {
+    const diagrams = parse(`
+      @startuml
+      title title
+      start
+      :Hello world;
+      :This is defined on
+
+      several **lines**;
+      end
+      @enduml
+    `);
+    expect(generateFeature(diagrams[0], {})).toMatchSnapshot();
+  });
+  test('Should support long description', () => {
+    const diagrams = parse(`
+      @startuml
+      title
+      title
+      description
+      description
+      description
+      description
+      end title
+      start
+      :Hello world;
+      :This is defined on
+
+      several **lines**;
+      end
+      @enduml
+    `);
+    expect(generateFeature(diagrams[0], {})).toMatchSnapshot();
   });
 });

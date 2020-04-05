@@ -8,6 +8,17 @@ export interface IfNode {
   branches: Branch[];
 }
 
+export interface Diagram {
+  title: string;
+  description?: string;
+  nodes: (Node | IfNode)[];
+}
+
+export interface Config {
+  paths?: { [key: string]: PathConfig };
+  global?: GlobalConfig;
+}
+
 export interface Branch {
   node: Node;
   children: Node[];

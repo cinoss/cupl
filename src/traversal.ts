@@ -1,7 +1,7 @@
 import { IfNode, Node } from './types';
 import { deepFlatten } from './utils';
 
-export function* traverse(diagram: [Node | IfNode]) {
+export function* traverse(diagram: (Node | IfNode)[]) {
   const traversal: any = {};
   function* visitBranches(node: IfNode) {
     for (const branch of node.branches) {
@@ -10,7 +10,7 @@ export function* traverse(diagram: [Node | IfNode]) {
       }
     }
   }
-  function* visitSequence(nodes: [Node | IfNode]): Generator<[Node[], boolean], void, unknown> {
+  function* visitSequence(nodes: (Node | IfNode)[]): Generator<[Node[], boolean], void, unknown> {
     const segments: any[] = [];
     let paths: Node[][] = [];
     const path: Node[] = [];

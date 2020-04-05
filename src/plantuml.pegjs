@@ -11,14 +11,42 @@ PlantUMLFile
 Diagrams
   = diagrams:(
     (!"@startuml" .)*
-    _ "@startuml" _ DiagramId? _ NewLine
+    _ "@startuml" _ [^\n]* (_ NewLine) +
+    title:(Title)?
     nodes:Sequence
     _ "@enduml" _ NewLine?
     (!"@startuml" .)*
     {
-      return nodes;
+      return {
+        ...title,
+        nodes,
+      };
     }
   )+
+
+Title =
+  title:(ShortTitle / LongTitle)
+  {
+    return title;
+  }
+
+ShortTitle =
+  _ "title" _ title:[^\n]+ _ NewLine
+  {
+    return {
+      title: title.join('').trim(),
+    }
+  }
+
+LongTitle =
+  _ "title" _ NewLine _ longTitle:( !(_ "end" _ "title") [^\n]* NewLine)+ _ "end" _ "title" (_ NewLine)+
+  {
+    const [title, ...description] = longTitle;
+    return {
+      title: title[1].join('').trim(),
+      description: description.map((l:string[][]) => l[1].join('').trim()).join('\n'),
+    }
+  }
 
 
 Sequence =
@@ -67,9 +95,10 @@ IfTail = _ "("  name:IfText ")" _ NewLine
     return { name, type: 'condition' }
   }
 
-IfText = text:[^)]+
+IfText =
+  text:( !([?][)]) [^)] )+ "?"?
   {
-    return text.join('')
+    return text.map((t: string[]) => t[1]).join('')
   }
 
 Terminal =
@@ -83,15 +112,13 @@ Stop = "stop"
 End = "end"
 
 Activity =
-  ActivityStart activity:ActivityBody ActivityEnd
+  ActivityStart activity:(([@])?[^;|<>/\]}]+) ActivityEnd
   {
     return {
-      name: activity.join('').replace(/\n\s+/g, '\n'),
-      type: 'activity'
+      name: activity[1].join('').replace(/\n\s+/g, '\n'),
+      type: activity[0] ? 'action' : 'activity'
     } as types.Node;
   }
-
-ActivityBody = [^;|<>/\]}]+
 
 ActivityStart = ":"
 ActivityEnd =

@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Config",
+  "definitions": {
+    "Config": {
+      "type": "object",
+      "properties": {
+        "paths": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PathConfig"
+          }
+        },
+        "global": {
+          "$ref": "#/definitions/GlobalConfig"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PathConfig": {
+      "type": "object",
+      "properties": {
+        "alias": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "examples": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "GlobalConfig": {
+      "type": "object",
+      "properties": {
+        "alias": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "examples": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "indent": {
+          "type": "number"
+        },
+        "dialect": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

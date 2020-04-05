@@ -1,9 +1,11 @@
+import { parse } from '../src/plantuml';
 import { traverse } from '../src/traversal';
-import { parse } from './../src/plantuml';
 
-test('', () => {
-  const diagrams = parse(`
+describe('traverse', () => {
+  test('should support simple activity diagram', () => {
+    const diagrams = parse(`
     @startuml
+    title title
     start
     :Hello world;
     :This is defined on
@@ -12,11 +14,16 @@ test('', () => {
     end
     @enduml
   `);
-  expect([...traverse(diagrams[0])]).toMatchSnapshot();
-});
-test('', () => {
-  const diagrams = parse(`
+    expect([...traverse(diagrams[0].nodes)]).toMatchSnapshot();
+  });
+  test('should support diagram with if statement', () => {
+    const diagrams = parse(`
     @startuml
+    title
+      title
+      Some description
+    end title
+
     start
     if (condition A) then (yes)
       :Text 1;
@@ -39,5 +46,6 @@ test('', () => {
     end
     @enduml
   `);
-  expect([...traverse(diagrams[0])]).toMatchSnapshot();
+    expect([...traverse(diagrams[0].nodes)]).toMatchSnapshot();
+  });
 });
