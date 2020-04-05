@@ -47,6 +47,7 @@
     "testEnvironment": "node",
     "coverageReporters": [
       "text",
+      "json",
       "html"
     ]
   },
