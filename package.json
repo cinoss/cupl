@@ -1,7 +1,7 @@
 {
   "name": "cupl",
   "description": "This is a tool for automatic gherkin feature files generation from PlantUML activity diagram.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "cinoss",
   "bin": {
     "cupl": "./bin/run"
@@ -37,7 +37,10 @@
   ],
   "homepage": "https://github.com/cinoss/cupl",
   "keywords": [
-    "oclif"
+    "Cucumber",
+    "Gherkin",
+    "PlantUML",
+    "Activity Diagram"
   ],
   "license": "MIT",
   "main": "lib/index.js",
