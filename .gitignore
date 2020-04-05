@@ -8,5 +8,3 @@
 node_modules
 
 coverage
-
-/src/plantuml.ts
