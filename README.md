@@ -22,7 +22,7 @@ $ npm install -g cupl
 $ cupl COMMAND
 running command...
 $ cupl (-v|--version|version)
-cupl/0.0.1 darwin-x64 node-v10.16.0
+cupl/0.0.2 darwin-x64 node-v10.16.0
 $ cupl --help [COMMAND]
 USAGE
   $ cupl COMMAND
