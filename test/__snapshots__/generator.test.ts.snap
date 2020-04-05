@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generate should accept path with neither action nor condition 1`] = `
+Array [
+  "  Scenario: ",
+  "    Then show wrong PIN Entered",
+  "      And eject card",
+]
+`;
+
+exports[`generate should accept path with no condition 1`] = `
+Array [
+  "  Scenario: ",
+  "    When user enters PIN",
+  "    Then show wrong PIN Entered",
+  "      And eject card",
+]
+`;
+
+exports[`generate should create scenario with Given Then When 1`] = `
+Array [
+  "  Scenario: entered wrong PIN",
+  "    Given entered wrong PIN",
+  "    When user enters PIN",
+  "    Then show wrong PIN Entered",
+  "      And eject card",
+]
+`;
+
+exports[`generate should support And on Given, When and Then 1`] = `
+Array [
+  "  Scenario: server responded|entered wrong PIN",
+  "    Given server responded",
+  "      And entered wrong PIN",
+  "    When user push a card in",
+  "      And user enters PIN",
+  "    Then show wrong PIN Entered",
+  "      And eject card",
+]
+`;
+
+exports[`generate support dialects 1`] = `
+Array [
+  "  @web @server",
+  "  Kịch bản: User forgot PIN or made a typo",
+  "    Cho having 123456 as PIN",
+  "    Khi enter 111111 as PIN",
+  "    Thì show wrong PIN Entered",
+  "      Và return card to user",
+]
+`;
+
+exports[`generate support fallback to en if specified dialect is missing 1`] = `
+Array [
+  "  @web @server",
+  "  Scenario: User forgot PIN or made a typo",
+  "    Given having 123456 as PIN",
+  "    When enter 111111 as PIN",
+  "    Then show wrong PIN Entered",
+  "      And return card to user",
+]
+`;
+
+exports[`generate support path and global alias 1`] = `
+Array [
+  "  @web @server",
+  "  Scenario: User forgot PIN or made a typo",
+  "    Given having 123456 as PIN",
+  "    When enter 111111 as PIN",
+  "    Then show wrong PIN Entered",
+  "      And return card to user",
+]
+`;

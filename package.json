@@ -11,27 +11,44 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
-    "tslib": "^1"
+    "fp-ts": "^2.5.3",
+    "tslib": "^1",
+    "gherkin": "^9.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-typescript": "^7.9.0",
     "@oclif/dev-cli": "^1",
-    "@oclif/test": "^1",
-    "@types/chai": "^4",
-    "@types/mocha": "^5",
+    "@types/jest": "^25.2.1",
     "@types/node": "^10",
-    "chai": "^4",
+    "babel-jest": "^25.2.6",
+    "cucumber-messages": "^8.0.0",
     "eslint": "^5.13",
     "eslint-config-oclif": "^3.1",
     "eslint-config-oclif-typescript": "^0.1",
     "eslint-config-prettier": "^6.10.1",
     "husky": "^4.2.3",
-    "mocha": "^5",
+    "jest": "^25.2.7",
     "nyc": "^14",
     "ts-node": "^8",
     "typescript": "^3.3"
   },
   "engines": {
     "node": ">=8.0.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "coverageReporters": [
+      "text",
+      "html"
+    ]
   },
   "files": [
     "/bin",
@@ -53,7 +70,7 @@
   "scripts": {
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
-    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "test": "jest --coverage",
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts",
