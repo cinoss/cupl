@@ -118,10 +118,9 @@ export function generateFeature(diagram: Diagram, config: Config) {
         )
         .join('\n\n'),
     newConfig: {
-      global: {
-        $schema: 'https://raw.githubusercontent.com/cinoss/cupl/master/src/config.schema.json',
-        ...config.global,
-      },
+      $schema: 'https://raw.githubusercontent.com/cinoss/cupl/master/src/config.schema.json',
+      ...config,
+      global: config.global,
       paths: {
         ..._.flow(
           _.map((path: { key: string }) => [path.key, {}]),

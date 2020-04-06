@@ -31,7 +31,7 @@ Title =
   }
 
 ShortTitle =
-  _ "title" _ title:[^\n]+ _ NewLine
+  _ "title" _ title:[^\n]+ (_ NewLine) +
   {
     return {
       title: title.join('').trim(),
@@ -50,7 +50,7 @@ LongTitle =
 
 
 Sequence =
-  sequence:(Node / If)+
+  sequence:(Node / If)*
   {
     return sequence;
   }
@@ -82,7 +82,8 @@ EndIf =
   _ "endif" _ NewLine
 
 
-IfTitle = _ "(" name:IfText ")" _  "then" IfTail
+IfTitle =
+  _ "(" name:IfText ")" _  "then" IfTail
   {
     return {
       type: 'condition',
@@ -112,13 +113,16 @@ Stop = "stop"
 End = "end"
 
 Activity =
-  ActivityStart activity:(([@])?[^;|<>/\]}]+) ActivityEnd
+  ActivityStart activity:(([@])?[^;|<>/\]}]+) ActivityEnd Note?
   {
     return {
       name: activity[1].join('').replace(/\n\s+/g, '\n'),
       type: activity[0] ? 'action' : 'activity'
     } as types.Node;
   }
+
+Note =
+  _ NewLine _ "note" _ ("left"/"right")_ NewLine _ ( !(_ "end" _ "note") [^\n]* NewLine)+ _ "end" _ "note" _
 
 ActivityStart = ":"
 ActivityEnd =

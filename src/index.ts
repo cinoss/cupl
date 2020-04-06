@@ -22,7 +22,7 @@ class Cupl extends Command {
 
   async run() {
     const { args } = this.parse(Cupl);
-    const puml = parse(readFileSync(args.file, 'utf-8'));
+    const puml = parse(readFileSync(args.file, 'utf-8'), { filename: args.file });
     const path = parsePath(args.file);
     const configPath = join(path.dir, `${path.name}.${CONFIG_EXT}`);
     const config = existsSync(configPath) ? JSON.parse(readFileSync(configPath, 'utf-8')) : {};

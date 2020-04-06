@@ -13,6 +13,7 @@ Object {
       And This is defined on
 several **lines**",
   "newConfig": Object {
+    "$schema": "https://raw.githubusercontent.com/cinoss/cupl/master/src/config.schema.json",
     "global": undefined,
     "paths": Object {
       "": Object {},
@@ -29,6 +30,7 @@ Object {
       And This is defined on
 several **lines**",
   "newConfig": Object {
+    "$schema": "https://raw.githubusercontent.com/cinoss/cupl/master/src/config.schema.json",
     "global": undefined,
     "paths": Object {
       "": Object {},
