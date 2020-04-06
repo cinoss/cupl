@@ -1,5 +1,6 @@
 import { Command, flags } from '@oclif/command';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+import * as stringify from 'json-stable-stringify';
 import { join, parse as parsePath } from 'path';
 
 import { generateFeature } from './generator';
@@ -27,7 +28,7 @@ class Cupl extends Command {
     const config = existsSync(configPath) ? JSON.parse(readFileSync(configPath, 'utf-8')) : {};
     const { feature, newConfig } = generateFeature(puml[0], config);
     this.log(feature);
-    writeFileSync(configPath, JSON.stringify(newConfig));
+    writeFileSync(configPath, stringify(newConfig, { space: '  ' }));
   }
 }
 

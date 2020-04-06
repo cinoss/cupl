@@ -1,10 +1,23 @@
 {
-  "global": { "alias": { "PIN is correct": "Entered Correct PIN number" }, "dialect": "en" },
+  "$schema": "https://raw.githubusercontent.com/cinoss/cupl/master/src/config.schema.json",
+  "global": {
+    "alias": {
+      "PIN is correct": "Entered Correct PIN number"
+    },
+    "dialect": "en"
+  },
   "paths": {
-    "PIN is correct|Balance is sufficient": { "name": "Successful transaction" },
-    "PIN is correct|Insufficient balance": { "name": "The world is not enough" },
+    "PIN is correct|Balance is sufficient": {
+      "name": "Successful transaction"
+    },
+    "PIN is correct|Insufficient balance": {
+      "name": "The world is not enough"
+    },
     "PIN is incorrect": {
-      "alias": { "enter PIN": "User enters 111112", "PIN is incorrect": "User's PIN is 111111" }
+      "alias": {
+        "PIN is incorrect": "User's PIN is 111111",
+        "enter PIN": "User enters 111112"
+      }
     }
   }
 }
