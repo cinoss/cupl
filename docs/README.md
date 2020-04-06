@@ -63,9 +63,9 @@ Feature: Simple ATM withdrawal
 - User/Core activity must start with `@` symbol, these will go to `When` steps of Gherkin file.
 - If condition must be a statement that end with `?`, it's will be drop while parsing.
 
-> :x: `is current counter 3?`
+> :x: `is PIN correct?`
 
-> :white_check_mark: `current counter is 3?`
+> :white_check_mark: `PIN is correct?`
 
 - Else branch must be descriptive.
 
@@ -73,7 +73,7 @@ Feature: Simple ATM withdrawal
 
 > :x: `false`
 
-> :white_check_mark: `current counter is 3?`
+> :white_check_mark: `PIN is incorrect`
 
 ## Basic
 
