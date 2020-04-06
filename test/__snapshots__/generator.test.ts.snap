@@ -18,7 +18,9 @@ Tính năng: title
       "dialect": "vi",
     },
     "paths": Object {
-      "": Object {},
+      "": Object {
+        "tags": Array [],
+      },
     },
   },
 }
@@ -41,7 +43,9 @@ Object {
       "dialect": "en",
     },
     "paths": Object {
-      "": Object {},
+      "": Object {
+        "tags": Array [],
+      },
     },
   },
 }
@@ -59,7 +63,9 @@ Object {
       "dialect": "en",
     },
     "paths": Object {
-      "": Object {},
+      "": Object {
+        "tags": Array [],
+      },
     },
   },
 }

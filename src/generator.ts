@@ -18,6 +18,9 @@ const findLastConditionIndex = findLastIndex<Node>((n) => n.type === 'condition'
 //   return a;
 // };
 
+const DEFAULT_PATH_CONFIG: PathConfig = {
+  tags: [],
+};
 const DEFAULT_DIALECT = 'en';
 
 const is = (type: Node['type']) => (n: Node) => n.type === type;
@@ -136,7 +139,7 @@ export function generateFeature(diagram: Diagram, config: Config) {
       },
       paths: {
         ..._.flow(
-          _.map((path: { key: string }) => [path.key, {}]),
+          _.map((path: { key: string }) => [path.key, DEFAULT_PATH_CONFIG]),
           _.fromPairs
         )(paths),
         ...config.paths,
