@@ -199,4 +199,24 @@ describe('generateFeature', () => {
     `);
     expect(generateFeature(diagrams[0], {})).toMatchSnapshot();
   });
+  test('Should include language tag on non default dialect', () => {
+    const diagrams = parse(`
+      @startuml
+      title
+      title
+      description
+      description
+      description
+      description
+      end title
+      start
+      :Hello world;
+      :This is defined on
+
+      several **lines**;
+      end
+      @enduml
+    `);
+    expect(generateFeature(diagrams[0], { global: { dialect: 'vi' } })).toMatchSnapshot();
+  });
 });

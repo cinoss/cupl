@@ -11,6 +11,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
+    "chalk": "^4.0.0",
     "fp-ts": "^2.5.3",
     "gherkin": "^9.0.0",
     "json-stable-stringify": "^1.0.1",
@@ -81,9 +82,8 @@
   "repository": "cinoss/cupl",
   "scripts": {
     "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
+    "prepack": "rm -rf lib && tsc -b",
     "test": "jest --coverage",
-    "version": "oclif-dev readme && git add README.md",
     "peg": "yarn pegjs --plugin ts-pegjs -o src/plantuml.ts --extra-options-file peg.config.json src/plantuml.pegjs",
     "peg:dev": "nodemon --exec yarn peg -w src/plantuml.pegjs"
   },

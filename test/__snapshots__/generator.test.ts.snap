@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`generateFeature Should include language tag on non default dialect 1`] = `
+Object {
+  "feature": "# language: vi
+Tính năng: title
+  description
+  description
+  description
+  description
+
+  Kịch bản: 
+    Thì Hello world
+      Và This is defined on several **lines**",
+  "newConfig": Object {
+    "$schema": "https://raw.githubusercontent.com/cinoss/cupl/master/src/config.schema.json",
+    "global": Object {
+      "dialect": "vi",
+    },
+    "paths": Object {
+      "": Object {},
+    },
+  },
+}
+`;
+
 exports[`generateFeature Should support long description 1`] = `
 Object {
   "feature": "Feature: title
@@ -10,11 +34,12 @@ Object {
 
   Scenario: 
     Then Hello world
-      And This is defined on
-several **lines**",
+      And This is defined on several **lines**",
   "newConfig": Object {
     "$schema": "https://raw.githubusercontent.com/cinoss/cupl/master/src/config.schema.json",
-    "global": undefined,
+    "global": Object {
+      "dialect": "en",
+    },
     "paths": Object {
       "": Object {},
     },
@@ -27,11 +52,12 @@ Object {
   "feature": "Feature: title
   Scenario: 
     Then Hello world
-      And This is defined on
-several **lines**",
+      And This is defined on several **lines**",
   "newConfig": Object {
     "$schema": "https://raw.githubusercontent.com/cinoss/cupl/master/src/config.schema.json",
-    "global": undefined,
+    "global": Object {
+      "dialect": "en",
+    },
     "paths": Object {
       "": Object {},
     },

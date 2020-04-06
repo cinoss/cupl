@@ -28,10 +28,13 @@ const returnSomeNameIfTypeIs = (type: Node['type']) => (n: Node) =>
 const nullableLastString: <T extends string>(as: [T]) => T | null = flow(last, toNullable);
 const lastSegmentOrEmpty = <T extends string>(as: T[][]) => as[as.length - 1] || [];
 
-const getAlias = (pathConfig?: PathConfig, globalConfig?: GlobalConfig) => (name: string) => {
+const removeNewLines = (name: string) => name.replace(/\s*(\n|\r\n)\s*/g, ' ');
+
+const getAlias = (pathConfig?: PathConfig, globalConfig?: GlobalConfig) => (givenName: string) => {
+  const name = removeNewLines(givenName);
   const globalAlias = globalConfig?.alias?.[name];
   const pathAlias = pathConfig?.alias?.[name];
-  return pathAlias || globalAlias || name;
+  return removeNewLines(pathAlias || globalAlias || name);
 };
 
 const INDENT_SIZE = 2;
@@ -41,13 +44,18 @@ const getDialect = (globalConfig?: GlobalConfig) => {
   return dialects[globalConfig?.dialect || DEFAULT_DIALECT] || dialects[DEFAULT_DIALECT];
 };
 
+const getDialectCode = (globalConfig?: GlobalConfig) => {
+  const dialects = gherkin.dialects();
+  return dialects[globalConfig?.dialect || 'unknown'] ? globalConfig?.dialect : DEFAULT_DIALECT;
+};
+
 const getStep = (indentSize: number) => (type: string, content: string, indent?: boolean) =>
   `${spaces[indentSize * (indent ? 3 : 2)]}${type}${content}`;
 
 const getPathKey = (path: Node[]) =>
   path
     .filter((n) => n.type === 'condition')
-    .map((t) => t.name)
+    .map((t) => removeNewLines(t.name!))
     .join('|');
 
 export function generateScenario(
@@ -104,8 +112,10 @@ export function generateFeature(diagram: Diagram, config: Config) {
     key: getPathKey(path),
   }));
   const dialect = getDialect(config?.global);
+  const dialectCode = getDialectCode(config?.global);
   return {
     feature:
+      (dialectCode === DEFAULT_DIALECT ? '' : `# language: ${dialectCode}\n`) +
       `${dialect.feature[0]}: ${diagram.title}` +
       (diagram.description ? ('\n' + diagram.description).replace(/\n/g, '\n  ') + '\n' : '') +
       '\n' +
@@ -120,7 +130,10 @@ export function generateFeature(diagram: Diagram, config: Config) {
     newConfig: {
       $schema: 'https://raw.githubusercontent.com/cinoss/cupl/master/src/config.schema.json',
       ...config,
-      global: config.global,
+      global: {
+        dialect: dialectCode,
+        ...config.global,
+      },
       paths: {
         ..._.flow(
           _.map((path: { key: string }) => [path.key, {}]),

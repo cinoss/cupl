@@ -1,14 +1,15 @@
-# cupl
+# Cupl
 
 A CLI tool for automatic **CU**cumber gherkin feature files generation from **PL**antuml activity diagram.
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/cupl.svg)](https://npmjs.org/package/cupl)
 [![CircleCI](https://circleci.com/gh/cinoss/cupl/tree/master.svg?style=shield)](https://circleci.com/gh/cinoss/cupl/tree/master)
-[![Appveyor CI](https://ci.appveyor.com/api/projects/status/github/cinoss/cupl?branch=master&svg=true)](https://ci.appveyor.com/project/cinoss/cupl/branch/master)
 [![Codecov](https://codecov.io/gh/cinoss/cupl/branch/master/graph/badge.svg)](https://codecov.io/gh/cinoss/cupl)
 [![Downloads/week](https://img.shields.io/npm/dw/cupl.svg)](https://npmjs.org/package/cupl)
 [![License](https://img.shields.io/npm/l/cupl.svg)](https://github.com/cinoss/cupl/blob/master/package.json)
+[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+
+<!-- [![Appveyor CI](https://ci.appveyor.com/api/projects/status/github/cinoss/cupl?branch=master&svg=true)](https://ci.appveyor.com/project/cinoss/cupl/branch/master) -->
 
 Cupl will help you transform `.puml` file of this diagram.
 
@@ -28,7 +29,7 @@ Feature: Simple ATM withdrawal
       And print receipt
       And eject the card
 
-  Scenario: The world is not enough
+  Scenario: Not enough money
     Given Entered Correct PIN number
       And Insufficient balance
     When enter amount
@@ -44,22 +45,113 @@ Feature: Simple ATM withdrawal
 ```
 
 <!-- toc -->
-* [cupl](#cupl)
-* [Usage](#usage)
-<!-- tocstop -->
+
+- [Cupl](#cupl)
+- [Usage](#usage)
+  - [Basic](#basic)
+  - [Install globally](#install-globally)
+- [Syntax Support](#syntax-support)
+  - [Gherkin](#gherkin)
+  - [PlantUML Activity Diagram (New Syntax)](#plantuml-activity-diagram-new-syntax)
+  <!-- tocstop -->
 
 # Usage
 
+## Basic
+
 <!-- usage -->
+
+1. create a `.puml` file and run
+
 ```sh-session
-$ npm install -g cupl
-$ cupl COMMAND
-running command...
-$ cupl (-v|--version|version)
-cupl/0.1.3 darwin-x64 node-v10.16.0
-$ cupl --help [COMMAND]
-USAGE
-  $ cupl COMMAND
+$ npx cupl FILE.puml
+Feature: ...
 ...
 ```
+
+2. a `.cupl.json` file will be generated to allow you to
+
+- Rename `Scenario` ( by `name` field).
+- Rename rename steps ( by `alias` dictionary).
+- Rename add `#tag` to `Scenario` and steps (by `tags` field - array of strings).
+- Rename change Gherkin dialect.
+
+Example:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/cinoss/cupl/master/src/config.schema.json",
+  "global": {
+    "alias": {
+      "PIN is correct": "Entered Correct PIN number"
+    },
+    "dialect": "en"
+  },
+  "paths": {
+    "PIN is correct|Balance is sufficient": {
+      "name": "Successful transaction"
+    },
+    "PIN is correct|Insufficient balance": {
+      "name": "Not enough money"
+    },
+    "PIN is incorrect": {
+      "alias": {
+        "PIN is incorrect": "User's PIN is 111111",
+        "enter PIN": "User enters 111112"
+      }
+    }
+  }
+}
+```
+
+3. Run `cupl` again with `-w` flag to generate a file.
+
+```sh-session
+$ npx cupl -w FILE.puml
+Feature: ...
+...
+Generated [FILE].feature successfully!
+```
+
+## Install globally
+
+```sh-session
+$ npm install -g cupl
+$ cupl FILE
+running command...
+...
+```
+
 <!-- usagestop -->
+
+# Syntax Support
+
+## Gherkin
+
+- [x] Feature
+- [x] Example (or Scenario)
+- [x] Given, When, Then, And, But for steps (or \*)
+- [x] Tags
+- [ ] Background
+- [ ] Scenario Outline (or Scenario Template)
+- [ ] Examples
+- [ ] Data Tables
+- [ ] Rule
+- [ ] Doc Strings
+- [ ] Comments
+
+## PlantUML Activity Diagram (New Syntax)
+
+- [x] `start`, `stop`, `end`
+- [x] `if`, `elseif`, `endif`
+- [x] `title`, `end title`
+- [x] `note`, `end note`
+- [x] SDL (`|`, `<`, `>`, `/`, `]`, `}`)
+- [ ] `repeat`, `repeat while`, `backward`, `while`, `end while`
+- [ ] `fork`, `end fork`
+- [ ] Colors
+- [ ] Arrow
+- [ ] Connector
+- [ ] Grouping
+- [ ] Swimlanes
+- [ ] Detach

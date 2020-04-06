@@ -28,7 +28,7 @@ Feature: Simple ATM withdrawal
       And print receipt
       And eject the card
 
-  Scenario: The world is not enough
+  Scenario: Not enough money
     Given Entered Correct PIN number
       And Insufficient balance
     When enter amount
