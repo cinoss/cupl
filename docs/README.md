@@ -48,6 +48,7 @@ Feature: Simple ATM withdrawal
 
 - [Cupl](#cupl)
 - [Usage](#usage)
+  - [Conventions](#conventions)
   - [Basic](#basic)
   - [Install globally](#install-globally)
 - [Syntax Support](#syntax-support)
@@ -56,6 +57,23 @@ Feature: Simple ATM withdrawal
   <!-- tocstop -->
 
 # Usage
+
+## Conventions
+
+- User/Core activity must start with `@` symbol, these will go to `When` steps of Gherkin file.
+- If condition must be a statement that end with `?`, it's will be drop while parsing.
+
+> :x: `is current counter 3?`
+
+> :white_check_mark: `current counter is 3?`
+
+- Else branch must be descriptive.
+
+> :x: `no`
+
+> :x: `false`
+
+> :white_check_mark: `current counter is 3?`
 
 ## Basic
 
