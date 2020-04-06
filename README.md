@@ -73,7 +73,7 @@ Feature: ...
 
 - Rename `Scenario` ( by `name` field).
 - Rename rename steps ( by `alias` dictionary).
-- Rename add `#tag` to `Scenario` and steps (by `tags` field - array of strings).
+- Rename add `@tag` to `Scenario` and steps (by `tags` field - array of strings).
 - Rename change Gherkin dialect.
 
 Example:
