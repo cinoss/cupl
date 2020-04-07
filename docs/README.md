@@ -18,7 +18,6 @@ Cupl will help you transform `.puml` file of this diagram.
 Into this Gherkin feature description
 
 ```gherkin
-Feature: Simple ATM withdrawal
   No PIN retry, No Amount re-enter
 
   Scenario: Successful transaction
@@ -29,6 +28,7 @@ Feature: Simple ATM withdrawal
       And print receipt
       And eject the card
 
+  @important
   Scenario: Not enough money
     Given Entered Correct PIN number
       And Insufficient balance
@@ -36,12 +36,17 @@ Feature: Simple ATM withdrawal
     Then display "Insufficient balance"
       And eject the card
 
-  Scenario: PIN is incorrect
-    Given User's PIN is 111111
+  Scenario Outline: PIN is incorrect
+    Given User's PIN is <pin>
     When insert card
-      And User enters 111112
+      And User enters <input>
     Then display "incorrect PIN"
       And eject the card
+
+    Examples:
+      | pin    | input  |
+      | 123456 | 325212 |
+      | 123456 |        |
 ```
 
 <!-- toc -->
@@ -90,9 +95,10 @@ Feature: ...
 2. a `.cupl.json` file will be generated to allow you to
 
 - Rename `Scenario` ( by `name` field).
-- Rename rename steps ( by `alias` dictionary).
+- Rename rename steps ( by `alias` dictionary) and insert parameters.
 - Rename add `@tag` to `Scenario` and steps (by `tags` field - array of strings).
 - Rename change Gherkin dialect.
+- Provides examples
 
 Example:
 
@@ -110,13 +116,19 @@ Example:
       "name": "Successful transaction"
     },
     "PIN is correct|Insufficient balance": {
-      "name": "Not enough money"
+      "name": "Not enough money",
+      "tags": ["important"]
     },
     "PIN is incorrect": {
       "alias": {
-        "PIN is incorrect": "User's PIN is 111111",
-        "enter PIN": "User enters 111112"
-      }
+        "PIN is incorrect": "User's PIN is <pin>",
+        "enter PIN": "User enters <input>"
+      },
+      "examples": [
+        ["pin", "input"],
+        ["123456", "325212"],
+        ["123456", ""]
+      ]
     }
   }
 }
@@ -150,9 +162,9 @@ running command...
 - [x] Example (or Scenario)
 - [x] Given, When, Then, And, But for steps (or \*)
 - [x] Tags
+- [x] Examples
 - [ ] Background
 - [ ] Scenario Outline (or Scenario Template)
-- [ ] Examples
 - [ ] Data Tables
 - [ ] Rule
 - [ ] Doc Strings

@@ -63,104 +63,211 @@ describe('generateScenario', () => {
     expect(generated).toMatchSnapshot();
     expect(generated.filter((line) => /^\s+And/.test(line)).length).toEqual(3);
   });
-  test('support path and global alias', () => {
-    const generated = generateScenario(
-      [
-        { type: 'start' },
-        { type: 'action', name: 'user enters PIN' },
-        { type: 'condition', name: 'entered wrong PIN' },
-        { type: 'activity', name: 'show wrong PIN Entered' },
-        { type: 'activity', name: 'eject card' },
-        { type: 'stop' },
-      ],
-      {
-        path: {
-          name: 'User forgot PIN or made a typo',
-          tags: ['web', 'server'],
-          alias: {
-            'entered wrong PIN': 'having 123456 as PIN',
-            'user enters PIN': 'enter 111111 as PIN',
+  describe('config', () => {
+    test('support path and global alias', () => {
+      const generated = generateScenario(
+        [
+          { type: 'start' },
+          { type: 'action', name: 'user enters PIN' },
+          { type: 'condition', name: 'entered wrong PIN' },
+          { type: 'activity', name: 'show wrong PIN Entered' },
+          { type: 'activity', name: 'eject card' },
+          { type: 'stop' },
+        ],
+        {
+          path: {
+            name: 'User forgot PIN or made a typo',
+            tags: ['web', 'server'],
+            alias: {
+              'entered wrong PIN': 'having 123456 as PIN',
+              'user enters PIN': 'enter 111111 as PIN',
+            },
           },
-        },
-        global: {
-          alias: {
-            'entered wrong PIN': '?????????',
-            'user enters PIN': '????????',
-            'eject card': 'return card to user',
+          global: {
+            alias: {
+              'entered wrong PIN': '?????????',
+              'user enters PIN': '????????',
+              'eject card': 'return card to user',
+            },
           },
-        },
-      }
-    );
-    expect(generated).toMatchSnapshot();
-    expect(generated.find((line) => /User forgot PIN or made a typo/.test(line))).toBeTruthy();
-    expect(generated.find((line) => /123456/.test(line))).toBeTruthy();
-    expect(generated.filter((line) => /\?+/.test(line)).length).toEqual(0);
-  });
-  test('support dialects', () => {
-    const generated = generateScenario(
-      [
-        { type: 'start' },
-        { type: 'action', name: 'user enters PIN' },
-        { type: 'condition', name: 'entered wrong PIN' },
-        { type: 'activity', name: 'show wrong PIN Entered' },
-        { type: 'activity', name: 'eject card' },
-        { type: 'stop' },
-      ],
-      {
-        path: {
-          name: 'User forgot PIN or made a typo',
-          tags: ['web', 'server'],
-          alias: {
-            'entered wrong PIN': 'having 123456 as PIN',
-            'user enters PIN': 'enter 111111 as PIN',
+        }
+      );
+      expect(generated).toMatchSnapshot();
+      expect(generated.find((line) => /User forgot PIN or made a typo/.test(line))).toBeTruthy();
+      expect(generated.find((line) => /123456/.test(line))).toBeTruthy();
+      expect(generated.filter((line) => /\?+/.test(line)).length).toEqual(0);
+    });
+    test('support dialects', () => {
+      const generated = generateScenario(
+        [
+          { type: 'start' },
+          { type: 'action', name: 'user enters PIN' },
+          { type: 'condition', name: 'entered wrong PIN' },
+          { type: 'activity', name: 'show wrong PIN Entered' },
+          { type: 'activity', name: 'eject card' },
+          { type: 'stop' },
+        ],
+        {
+          path: {
+            name: 'User forgot PIN or made a typo',
+            tags: ['web', 'server'],
+            alias: {
+              'entered wrong PIN': 'having 123456 as PIN',
+              'user enters PIN': 'enter 111111 as PIN',
+            },
           },
-        },
-        global: {
-          dialect: 'vi',
-          alias: {
-            'entered wrong PIN': '?????????',
-            'user enters PIN': '????????',
-            'eject card': 'return card to user',
+          global: {
+            dialect: 'vi',
+            alias: {
+              'entered wrong PIN': '?????????',
+              'user enters PIN': '????????',
+              'eject card': 'return card to user',
+            },
           },
-        },
-      }
-    );
-    expect(generated).toMatchSnapshot();
-    expect(generated.find((line) => /User forgot PIN or made a typo/.test(line))).toBeTruthy();
-    expect(generated.find((line) => /123456/.test(line))).toBeTruthy();
-    expect(generated.filter((line) => /\?+/.test(line)).length).toEqual(0);
-  });
-  test('support fallback to en if specified dialect is missing', () => {
-    const generated = generateScenario(
-      [
-        { type: 'start' },
-        { type: 'action', name: 'user enters PIN' },
-        { type: 'condition', name: 'entered wrong PIN' },
-        { type: 'activity', name: 'show wrong PIN Entered' },
-        { type: 'activity', name: 'eject card' },
-        { type: 'stop' },
-      ],
-      {
-        path: {
-          name: 'User forgot PIN or made a typo',
-          tags: ['web', 'server'],
-          alias: {
-            'entered wrong PIN': 'having 123456 as PIN',
-            'user enters PIN': 'enter 111111 as PIN',
+        }
+      );
+      expect(generated).toMatchSnapshot();
+      expect(generated.find((line) => /User forgot PIN or made a typo/.test(line))).toBeTruthy();
+      expect(generated.find((line) => /123456/.test(line))).toBeTruthy();
+      expect(generated.filter((line) => /\?+/.test(line)).length).toEqual(0);
+    });
+    test('support fallback to en if specified dialect is missing', () => {
+      const generated = generateScenario(
+        [
+          { type: 'start' },
+          { type: 'action', name: 'user enters PIN' },
+          { type: 'condition', name: 'entered wrong PIN' },
+          { type: 'activity', name: 'show wrong PIN Entered' },
+          { type: 'activity', name: 'eject card' },
+          { type: 'stop' },
+        ],
+        {
+          path: {
+            name: 'User forgot PIN or made a typo',
+            tags: ['web', 'server'],
+            alias: {
+              'entered wrong PIN': 'having 123456 as PIN',
+              'user enters PIN': 'enter 111111 as PIN',
+            },
           },
-        },
-        global: {
-          dialect: 'alien',
-          alias: {
-            'entered wrong PIN': '?????????',
-            'user enters PIN': '????????',
-            'eject card': 'return card to user',
+          global: {
+            dialect: 'alien',
+            alias: {
+              'entered wrong PIN': '?????????',
+              'user enters PIN': '????????',
+              'eject card': 'return card to user',
+            },
           },
-        },
-      }
-    );
-    expect(generated).toMatchSnapshot();
-    expect(generated.find((line) => /\s+Given/.test(line))).toBeTruthy();
+        }
+      );
+      expect(generated).toMatchSnapshot();
+      expect(generated.find((line) => /\s+Given/.test(line))).toBeTruthy();
+    });
+    it('should support scenario examples', () => {
+      const generated = generateScenario(
+        [
+          { type: 'start' },
+          { type: 'action', name: 'user enters PIN' },
+          { type: 'condition', name: 'entered wrong PIN' },
+          { type: 'activity', name: 'show wrong PIN Entered' },
+          { type: 'activity', name: 'eject card' },
+          { type: 'stop' },
+        ],
+        {
+          path: {
+            name: 'User forgot PIN or made a typo',
+            tags: ['web', 'server'],
+            alias: {
+              'entered wrong PIN': 'having <secret> as PIN',
+              'user enters PIN': 'enter <input> as PIN',
+            },
+            examples: [
+              ['secret', 'input'],
+              ['111111', ''],
+              ['111111', '111112'],
+            ],
+          },
+          global: {
+            dialect: 'alien',
+            alias: {
+              'entered wrong PIN': '?????????',
+              'user enters PIN': '????????',
+              'eject card': 'return card to user',
+            },
+          },
+        }
+      );
+      expect(generated).toMatchSnapshot();
+      expect(generated.filter((line) => /secret/.test(line))).toHaveLength(2);
+    });
+    it('should throw an error if header row has no items', () => {
+      const exec = () => {
+        generateScenario(
+          [
+            { type: 'start' },
+            { type: 'action', name: 'user enters PIN' },
+            { type: 'condition', name: 'entered wrong PIN' },
+            { type: 'activity', name: 'show wrong PIN Entered' },
+            { type: 'activity', name: 'eject card' },
+            { type: 'stop' },
+          ],
+          {
+            path: {
+              name: 'User forgot PIN or made a typo',
+              tags: ['web', 'server'],
+              alias: {
+                'entered wrong PIN': 'having <secret> as PIN',
+                'user enters PIN': 'enter <input> as PIN',
+              },
+              examples: [[], ['111111', ''], ['111111', '111112']],
+            },
+            global: {
+              dialect: 'alien',
+              alias: {
+                'entered wrong PIN': '?????????',
+                'user enters PIN': '????????',
+                'eject card': 'return card to user',
+              },
+            },
+          }
+        );
+      };
+      expect(exec).toThrowError();
+    });
+    it('should throw an error if a header is empty', () => {
+      const exec = () => {
+        generateScenario(
+          [
+            { type: 'start' },
+            { type: 'action', name: 'user enters PIN' },
+            { type: 'condition', name: 'entered wrong PIN' },
+            { type: 'activity', name: 'show wrong PIN Entered' },
+            { type: 'activity', name: 'eject card' },
+            { type: 'stop' },
+          ],
+          {
+            path: {
+              name: 'User forgot PIN or made a typo',
+              tags: ['web', 'server'],
+              alias: {
+                'entered wrong PIN': 'having <secret> as PIN',
+                'user enters PIN': 'enter <input> as PIN',
+              },
+              examples: [[''], ['111111', ''], ['111111', '111112']],
+            },
+            global: {
+              dialect: 'alien',
+              alias: {
+                'entered wrong PIN': '?????????',
+                'user enters PIN': '????????',
+                'eject card': 'return card to user',
+              },
+            },
+          }
+        );
+      };
+      expect(exec).toThrowError();
+    });
   });
 });
 

@@ -1,6 +1,6 @@
-import { dropLeft, filterMap, findLastIndex, last } from 'fp-ts/lib/Array';
+import { dropLeft, filterMap, findLastIndex } from 'fp-ts/lib/Array';
 import { flow } from 'fp-ts/lib/function';
-import { getOrElse, none, some, toNullable } from 'fp-ts/lib/Option';
+import { getOrElse, none, some } from 'fp-ts/lib/Option';
 import gherkin from 'gherkin';
 import * as _ from 'lodash/fp';
 
@@ -28,7 +28,7 @@ const is = (type: Node['type']) => (n: Node) => n.type === type;
 const returnSomeNameIfTypeIs = (type: Node['type']) => (n: Node) =>
   n.type === type ? some(n.name!) : none;
 
-const nullableLastString: <T extends string>(as: [T]) => T | null = flow(last, toNullable);
+const lastString = (a: readonly string[]) => a[a.length - 1]!;
 const lastSegmentOrEmpty = <T extends string>(as: T[][]) => as[as.length - 1] || [];
 
 const removeNewLines = (name: string) => name.replace(/\s*(\n|\r\n)\s*/g, ' ');
@@ -61,6 +61,27 @@ const getPathKey = (path: Node[]) =>
     .map((t) => removeNewLines(t.name!))
     .join('|');
 
+const formatExamples = (examples: string[][], indentSize: number): string[] => {
+  const colCount = examples[0]?.length || 0;
+  if (colCount === 0) throw new Error('Having example with 0 columns');
+  for (const header of examples[0]) {
+    if (!header) throw new Error('Having empty header');
+  }
+  const lengths = examples[0].map((col) => col.length);
+  examples.forEach((row) =>
+    row.forEach((item, col) => {
+      lengths[col] = Math.max(lengths[col], item?.length || 0);
+    })
+  );
+  return examples.map(
+    (row, rowIdx) =>
+      `${spaces[indentSize * 3]}| ${row
+        .map((item, col) =>
+          rowIdx === 0 ? item.padEnd(lengths[col], ' ') : (item || '').padStart(lengths[col], ' ')
+        )
+        .join(' | ')} |`
+  );
+};
 export function generateScenario(
   path: Node[],
   config?: { path?: PathConfig; global?: GlobalConfig }
@@ -87,16 +108,18 @@ export function generateScenario(
   );
 
   const vocab = {
-    scenario: nullableLastString(dialect.scenario as any)!,
-    and: nullableLastString(dialect.and as any)!,
-    then: nullableLastString(dialect.then as any)!,
-    when: nullableLastString(dialect.when as any)!,
-    given: nullableLastString(dialect.given as any)!,
+    scenario: lastString(dialect.scenario),
+    scenarioOutline: dialect.scenarioOutline[0],
+    and: lastString(dialect.and),
+    then: lastString(dialect.then),
+    when: lastString(dialect.when),
+    given: lastString(dialect.given),
+    examples: dialect.examples[0],
   };
-
+  const hasExamples = Boolean(config?.path?.examples);
   return [
     ...(tags.length > 0 ? [`${spaces[indentSize]}${tags.map((tag) => `@${tag}`).join(' ')}`] : []),
-    `${spaces[indentSize]}${vocab.scenario}: ${scenario}`,
+    `${spaces[indentSize]}${hasExamples ? vocab.scenarioOutline : vocab.scenario}: ${scenario}`,
     ...givenConditions.map((name: string, idx: number) =>
       step(idx === 0 ? vocab.given : vocab.and, alias(name), idx !== 0)
     ),
@@ -106,6 +129,13 @@ export function generateScenario(
     ...thenActivities.map((name: string, idx: number) =>
       step(idx === 0 ? vocab.then : vocab.and, alias(name), idx !== 0)
     ),
+    ...(hasExamples
+      ? [
+          '',
+          `${spaces[indentSize * 2]}${vocab.examples}:`,
+          ...formatExamples(config!.path!.examples!, indentSize),
+        ]
+      : []),
   ];
 }
 

@@ -27,26 +27,13 @@
           }
         },
         "examples": {
-          "anyOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "string"
-                }
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
-          ]
+          }
         },
         "name": {
           "type": "string"
@@ -70,26 +57,13 @@
           }
         },
         "examples": {
-          "anyOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "string"
-                }
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
-          ]
+          }
         },
         "indent": {
           "type": "number"

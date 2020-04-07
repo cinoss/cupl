@@ -3,22 +3,28 @@ Feature: Simple ATM withdrawal
 
   Scenario: Successful transaction
     Given Entered Correct PIN number
-    And Balance is sufficient
+      And Balance is sufficient
     When enter amount
     Then dispense notes
-    And print receipt
-    And eject the card
+      And print receipt
+      And eject the card
 
+  @important
   Scenario: Not enough money
     Given Entered Correct PIN number
-    And Insufficient balance
+      And Insufficient balance
     When enter amount
     Then display "Insufficient balance"
-    And eject the card
+      And eject the card
 
-  Scenario: PIN is incorrect
-    Given User's PIN is 111111
+  Scenario Outline: PIN is incorrect
+    Given User's PIN is <pin>
     When insert card
-    And User enters 111112
+      And User enters <input>
     Then display "incorrect PIN"
-    And eject the card
+      And eject the card
+
+    Examples:
+      | pin    | input  |
+      | 123456 | 325212 |
+      | 123456 |        |

@@ -11,14 +11,19 @@
       "name": "Successful transaction"
     },
     "PIN is correct|Insufficient balance": {
-      "tags": ["important"],
-      "name": "Not enough money"
+      "name": "Not enough money",
+      "tags": ["important"]
     },
     "PIN is incorrect": {
       "alias": {
-        "PIN is incorrect": "User's PIN is 111111",
-        "enter PIN": "User enters 111112"
-      }
+        "PIN is incorrect": "User's PIN is <pin>",
+        "enter PIN": "User enters <input>"
+      },
+      "examples": [
+        ["pin", "input"],
+        ["123456", "325212"],
+        ["123456", ""]
+      ]
     }
   }
 }

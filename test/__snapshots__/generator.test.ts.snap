@@ -71,6 +71,55 @@ Object {
 }
 `;
 
+exports[`generateScenario config should support scenario examples 1`] = `
+Array [
+  "  @web @server",
+  "  Scenario Outline: User forgot PIN or made a typo",
+  "    Given having <secret> as PIN",
+  "    When enter <input> as PIN",
+  "    Then show wrong PIN Entered",
+  "      And return card to user",
+  "",
+  "    Examples:",
+  "      | secret | input  |",
+  "      | 111111 |        |",
+  "      | 111111 | 111112 |",
+]
+`;
+
+exports[`generateScenario config support dialects 1`] = `
+Array [
+  "  @web @server",
+  "  Kịch bản: User forgot PIN or made a typo",
+  "    Cho having 123456 as PIN",
+  "    Khi enter 111111 as PIN",
+  "    Thì show wrong PIN Entered",
+  "      Và return card to user",
+]
+`;
+
+exports[`generateScenario config support fallback to en if specified dialect is missing 1`] = `
+Array [
+  "  @web @server",
+  "  Scenario: User forgot PIN or made a typo",
+  "    Given having 123456 as PIN",
+  "    When enter 111111 as PIN",
+  "    Then show wrong PIN Entered",
+  "      And return card to user",
+]
+`;
+
+exports[`generateScenario config support path and global alias 1`] = `
+Array [
+  "  @web @server",
+  "  Scenario: User forgot PIN or made a typo",
+  "    Given having 123456 as PIN",
+  "    When enter 111111 as PIN",
+  "    Then show wrong PIN Entered",
+  "      And return card to user",
+]
+`;
+
 exports[`generateScenario should accept path with neither action nor condition 1`] = `
 Array [
   "  Scenario: ",
@@ -107,38 +156,5 @@ Array [
   "      And user enters PIN",
   "    Then show wrong PIN Entered",
   "      And eject card",
-]
-`;
-
-exports[`generateScenario support dialects 1`] = `
-Array [
-  "  @web @server",
-  "  Kịch bản: User forgot PIN or made a typo",
-  "    Cho having 123456 as PIN",
-  "    Khi enter 111111 as PIN",
-  "    Thì show wrong PIN Entered",
-  "      Và return card to user",
-]
-`;
-
-exports[`generateScenario support fallback to en if specified dialect is missing 1`] = `
-Array [
-  "  @web @server",
-  "  Scenario: User forgot PIN or made a typo",
-  "    Given having 123456 as PIN",
-  "    When enter 111111 as PIN",
-  "    Then show wrong PIN Entered",
-  "      And return card to user",
-]
-`;
-
-exports[`generateScenario support path and global alias 1`] = `
-Array [
-  "  @web @server",
-  "  Scenario: User forgot PIN or made a typo",
-  "    Given having 123456 as PIN",
-  "    When enter 111111 as PIN",
-  "    Then show wrong PIN Entered",
-  "      And return card to user",
 ]
 `;

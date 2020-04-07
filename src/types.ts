@@ -26,7 +26,7 @@ export interface Branch {
 
 export interface CommonConfig {
   alias?: { [key: string]: string };
-  examples?: { [key: string]: string }[] | string[][];
+  examples?: string[][];
 }
 
 export interface PathConfig extends CommonConfig {
