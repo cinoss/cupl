@@ -68,7 +68,7 @@ If =
     };
   }
 
-Node = _ node:(Terminal / Activity) _ NewLine
+Node = _ node:(Terminal / Activity) (_ NewLine)+
   {
     return node;
   }
@@ -79,7 +79,7 @@ ElseIf =
     return { node, children };
   }
 EndIf =
-  _ "endif" _ NewLine
+  _ "endif" (_ NewLine)+
 
 
 IfTitle =

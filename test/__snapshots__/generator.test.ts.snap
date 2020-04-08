@@ -32,6 +32,15 @@ exports[`generateFeature Should support assert (!) 1`] = `
     Given this is condition"
 `;
 
+exports[`generateFeature Should support empty if branch 1`] = `
+"Feature: undefined
+  Scenario: a
+    Given a
+
+  Scenario: c
+    Given c"
+`;
+
 exports[`generateFeature Should support long description 1`] = `
 Object {
   "feature": "Feature: title

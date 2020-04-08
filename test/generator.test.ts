@@ -339,4 +339,20 @@ describe('generateFeature', () => {
     expect(feature).toMatchSnapshot();
     expect(feature).toContain('Given this is condition');
   });
+  test('Should support empty if branch', () => {
+    const diagrams = parse(`
+      @startuml
+      start
+      :Hello world;
+
+      if (a) then (b)
+      else (c)
+      endif
+
+      end
+      @enduml
+    `);
+    const { feature } = generateFeature(diagrams[0], {});
+    expect(feature).toMatchSnapshot();
+  });
 });
