@@ -26,6 +26,12 @@ Tính năng: title
 }
 `;
 
+exports[`generateFeature Should support assert (!) 1`] = `
+"Feature: undefined
+  Scenario: this is condition
+    Given this is condition"
+`;
+
 exports[`generateFeature Should support long description 1`] = `
 Object {
   "feature": "Feature: title

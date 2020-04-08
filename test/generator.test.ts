@@ -326,4 +326,17 @@ describe('generateFeature', () => {
     `);
     expect(generateFeature(diagrams[0], { global: { dialect: 'vi' } })).toMatchSnapshot();
   });
+  test('Should support assert (!)', () => {
+    const diagrams = parse(`
+      @startuml
+      start
+      :Hello world;
+      :this is condition!;
+      end
+      @enduml
+    `);
+    const { feature } = generateFeature(diagrams[0], {});
+    expect(feature).toMatchSnapshot();
+    expect(feature).toContain('Given this is condition');
+  });
 });

@@ -113,11 +113,11 @@ Stop = "stop"
 End = "end"
 
 Activity =
-  ActivityStart activity:(([@])?[^;|<>/\]}]+) ActivityEnd Note?
+  ActivityStart activity:(([@])?[^;|<>/\]}!]+([!])?) ActivityEnd Note?
   {
     return {
       name: activity[1].join('').replace(/\n\s+/g, '\n'),
-      type: activity[0] ? 'action' : 'activity'
+      type: activity[0] ? 'action' : activity[2] ? 'condition' : 'activity'
     } as types.Node;
   }
 

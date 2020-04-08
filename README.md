@@ -67,7 +67,7 @@ Feature: Simple ATM withdrawal
 ## Conventions
 
 - User/Core activity must start with `@` symbol, these will go to `When` steps of Gherkin file.
-- If condition must be a statement that end with `?`, it's will be drop while parsing.
+- If condition must be a statement that end with `?`, the question mark will be drop while parsing.
 
 > :x: `is PIN correct?`
 
@@ -80,6 +80,8 @@ Feature: Simple ATM withdrawal
 > :x: `false`
 
 > :white_check_mark: `PIN is incorrect`
+
+- Activity must not contain (!), if it ends with !, the activity will be consider as an `Given`.
 
 ## Basic
 

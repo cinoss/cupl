@@ -18,6 +18,7 @@ Cupl will help you transform `.puml` file of this diagram.
 Into this Gherkin feature description
 
 ```gherkin
+Feature: Simple ATM withdrawal
   No PIN retry, No Amount re-enter
 
   Scenario: Successful transaction
@@ -66,7 +67,7 @@ Into this Gherkin feature description
 ## Conventions
 
 - User/Core activity must start with `@` symbol, these will go to `When` steps of Gherkin file.
-- If condition must be a statement that end with `?`, it's will be drop while parsing.
+- If condition must be a statement that end with `?`, the question mark will be drop while parsing.
 
 > :x: `is PIN correct?`
 
@@ -79,6 +80,8 @@ Into this Gherkin feature description
 > :x: `false`
 
 > :white_check_mark: `PIN is incorrect`
+
+- Activity must not contain (!), if it ends with !, the activity will be consider as an `Given`.
 
 ## Basic
 
@@ -98,7 +101,7 @@ Feature: ...
 - Rename rename steps ( by `alias` dictionary) and insert parameters.
 - Rename add `@tag` to `Scenario` and steps (by `tags` field - array of strings).
 - Rename change Gherkin dialect.
-- Provides examples
+- Provide examples.
 
 Example:
 
